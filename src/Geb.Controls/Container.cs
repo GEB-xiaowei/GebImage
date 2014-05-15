@@ -17,7 +17,7 @@ namespace Geb.Controls
 
         public override DisplayObject HitTest(double x, double y)
         {
-            DisplayObject match = base.HitTest(x, y);
+            DisplayObject match = base.HitTest(x, y); 
             if (match == null) return null;
             else
             {
@@ -36,6 +36,7 @@ namespace Geb.Controls
         public override void SetInvalidated(Boolean value)
         {
             this._invalidated = value;
+            if (Controls == null) return;
             foreach (DisplayObject item in this.Controls)
             {
                 item.SetInvalidated(value);

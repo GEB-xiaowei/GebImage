@@ -10,6 +10,11 @@ namespace Geb.Controls.Demo
 {
     public partial class FrmMain : Form
     {
+        public int X=200;
+        public int Y=10;
+        public int W=200;
+        public int H=70;
+
         public FrmMain()
         {
             InitializeComponent();
@@ -18,25 +23,33 @@ namespace Geb.Controls.Demo
 
         private void Init()
         {
-            for(int h = 0; h < 10; h++)
+            for (int i = 0; i < 5; i++)
             {
-                for (int w = 0; w < 10; w++)
-                {
-                    Button btn = new Button();
-                    btn.Width = 30;
-                    btn.Text = h.ToString(0 + "," + w.ToString());
-                    btn.X = w * 40;
-                    btn.Y = h * 40;
-                    this.container.Add(btn);
-                }
+                MonitorControl item = new MonitorControl();
+                item.X = i * 110;
+                item.Id = (i+1).ToString();
+                container.Add(item);
             }
-
+            for (int i = 0; i < 1000; i++)
+            {
+                Button btn = new Button(6*i, 40, 5, 20);
+                this.container.Add(btn);                
+            }
             this.container.InitEvents();
         }
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
+            timer.Start();
+        }
 
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            foreach (DisplayObject item in container.DisplayObjects)
+            {
+                item.X += 1;
+            }
+            container.Invalidate();
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Geb.Controls
         }
 
         public List<DisplayObject> DisplayObjects = new List<DisplayObject>();
+        public Point _lastMouseLocation = new Point(-1,-1);
 
         public DisplayObject HitTest(double x, double y)
         {
@@ -23,7 +24,7 @@ namespace Geb.Controls
                 DisplayObject m = item.HitTest(x, y);
                 if (m != null) return m;
             }
-            return null;
+            return null; 
         }
 
         public void Add(DisplayObject element)
@@ -48,8 +49,8 @@ namespace Geb.Controls
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            //base.OnPaint(e);
             var g = e.Graphics;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             foreach (DisplayObject item in DisplayObjects)
             {
                 item.SetInvalidated(false);
@@ -61,6 +62,27 @@ namespace Geb.Controls
         {
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GebContainer_MouseDown);
             this.MouseUp += GebContainer_MouseUp;
+            this.MouseMove += GebContainer_MouseMove;
+        }
+
+
+        void GebContainer_MouseMove(object sender, MouseEventArgs e)
+        {
+            //DisplayObject find = HitTest(e.Location.X, e.Location.Y);
+            //if (find != null)
+            //{
+            //    find.OnMouseEvent("MouseMove", e);
+            //    this._lastMouseLocation = e;
+            //}
+            //else { 
+            //    if(_lastMouseLocation!=null)
+            //    {
+            //        DisplayObject find2 = HitTest(_lastMouseLocation.Location.X, _lastMouseLocation.Location.Y);
+            //        find2.OnMouseEvent("MouseLeave", _lastMouseLocation);
+            //        this._lastMouseLocation=null;
+            //    }
+            //    this._lastMouseLocation = null;
+            //}
         }
 
        private  void GebContainer_MouseUp(object sender, MouseEventArgs e)
@@ -68,7 +90,7 @@ namespace Geb.Controls
             DisplayObject find = HitTest(e.Location.X, e.Location.Y);
             if (find != null)
             {
-                find.OnMouseEvent("MouseUp", e.Location.X, e.Location.Y);
+                find.OnMouseEvent("MouseUp", e);
             }
         }
 
@@ -77,15 +99,15 @@ namespace Geb.Controls
             DisplayObject find = HitTest(e.Location.X, e.Location.Y);
             if (find != null)
             {
-                find.OnMouseEvent("MouseDown", e.Location.X, e.Location.Y);
+                find.OnMouseEvent("MouseDown", e);
             }
         }
+
 
         private void InitializeComponent()
         {
             this.SuspendLayout();
             this.ResumeLayout(false);
-
         }
     }
 }

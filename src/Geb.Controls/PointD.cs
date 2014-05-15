@@ -10,6 +10,12 @@ namespace Geb.Controls
         public double X;
         public double Y;
 
+        public PointD(double x, double y) 
+        {
+            this.X = x;
+            this.Y = y;
+        }
+
         public PointF ToPointF()
         {
             return new PointF((float)X, (float)Y);

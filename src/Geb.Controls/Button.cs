@@ -2,37 +2,51 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
+using System.Windows.Forms;
+
 namespace Geb.Controls
 {
     public class Button : Container
     {
         public String Text { get; set; }
+        public Font Font;
+        public TextAlign Align;
+        public TextAlign LineAlign;
+        public Color FontColor = Color.Black;
 
-        public Button()
+        private Label label=new Label();
+
+        public Button(double x, double y, double width, double heith,string text,Font font,TextAlign align,TextAlign lineAlign,Color color)
         {
             IsChildrenMouseEnable = false;
+            this.X = x; this.Y = y; this.Width = width; this.Height = heith;
+
+            this.Text = text;
+            this.Font = font;
+            this.FontColor = color;
+            this.Align = align;this.LineAlign = lineAlign;
         }
 
-        public override void OnMouseEvent(String eventName, double x, double y)
+
+        public Button(double x,double y,double width,double heith) 
         {
-            switch(eventName)
-            {
-                case "MouseDown":
-                    this.BackgroundColor = Color.Red;
-                    break;
-                case "MouseUp":
-                    this.BackgroundColor = Color.White;
-                    break;
-            }
-            this.Invalidate();
+            IsChildrenMouseEnable = false;
+            this.X = x; this.Y = y; this.Width = width; this.Height = heith;
         }
 
         public override void Create()
         {
-            base.Create();
-            Label label = new Label();
-            label.Text = Text;
+            label.Width = Width;
+            label.Height = Height;
+            label.Align = this.Align;
+            label.LineAilgn = this.LineAlign;
+            label.Font = this.Font;
+            label.FontColor = this.FontColor;
+            label.Text = this.Text;
             this.Add(label);
         }
+
+
+
     }
 }

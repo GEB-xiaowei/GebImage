@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.container = new Geb.Controls.GebContainer();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // container
@@ -37,11 +39,16 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.container.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.container.Location = new System.Drawing.Point(12, 24);
+            this.container.Location = new System.Drawing.Point(0, -1);
             this.container.Name = "container";
-            this.container.Size = new System.Drawing.Size(608, 306);
+            this.container.Size = new System.Drawing.Size(648, 403);
             this.container.TabIndex = 0;
             this.container.Text = "gebContainer1";
+            // 
+            // timer
+            // 
+            this.timer.Interval = 50;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // FrmMain
             // 
@@ -59,6 +66,7 @@
         #endregion
 
         private GebContainer container;
+        private System.Windows.Forms.Timer timer;
     }
 }
 
